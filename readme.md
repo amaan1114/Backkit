@@ -1,5 +1,3 @@
-git # Backkit
-
 Backkit is an interactive CLI for scaffolding customizable Node.js backends.
 Choose the language, framework, architecture, database, ORM or ODM, and authentication setup for each project.
 
