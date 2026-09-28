@@ -4,9 +4,7 @@ import { fileURLToPath } from "node:url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export function getTemplatesPath(
-  category: string,
-): string {
+export function getTemplatesPath(category: string): string {
   return path.resolve(
     __dirname,
     "../templates",
