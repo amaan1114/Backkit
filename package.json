@@ -1,0 +1,35 @@
+{
+  "name": "backkit",
+  "version": "1.0.0",
+  "description": "Customizable backend scaffolding CLI for generating production-ready Node.js APIs",
+  "keywords": [
+    "backend",
+    "scaffolding",
+    "cli",
+    "nodejs",
+    "express",
+    "typescript",
+    "api",
+    "generator"
+  ],
+  "license": "MIT",
+  "author": "Amaan Zaidi",
+  "type": "module",
+  "main": "dist/cli.js",
+  "bin": {
+    "backkit": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/cli.ts",
+    "start": "node dist/cli.js"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^8.7.2"
+  }
+}
