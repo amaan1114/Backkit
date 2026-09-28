@@ -8,16 +8,14 @@ import {
   addScripts,
 } from "../../utils/package-json.js";
 import { getFileExtension } from "../../utils/language.js";
+import { getTemplatesPath } from "../../utils/templates.js";
 
 export async function generateMongoose(
   context: any
 ): Promise<void> {
   const { projectPath, config } = context;
 
-  const templatesPath = path.resolve(
-    process.cwd(),
-    "src/templates/mongoose",
-  );
+  const templatesPath =getTemplatesPath("mongoose")
 
   const extension = getFileExtension(
     config.language,

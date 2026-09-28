@@ -10,6 +10,7 @@ import { generatePostgres } from "./database/postgres.js";
 import { generateMongo } from "./database/mongo.js";
 import { generateDrizzle } from "./orm/drizzle.js";
 import { generatePrisma } from "./orm/prisma.js";
+import { generateJWT } from "./auth/jwt.js";
 import { generateMongoose } from "./orm/mongoose.js";
 
 export async function generateProject(
@@ -54,6 +55,9 @@ export async function generateProject(
   }
   if (config.orm === "mongoose") {
     await generateMongoose(context);
+  }
+  if (config.authentication === "jwt") {
+    await generateJWT(context);
   }
 
   console.log(`\n✓ Created ${config.name}`);

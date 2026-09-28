@@ -1,23 +1,20 @@
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { renderTemplate } from "../../utils/filesystem.js";
+import { getTemplatesPath } from "../../utils/templates.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
-const templatesPath = path.resolve(
-  __dirname,
-  "../../templates/base",
-);
 
 export async function generateBase(
   context: any
 ): Promise<void> {
   const { config, projectPath } = context;
 
+  const templatesPath = getTemplatesPath("base");
   const variables = {
     PROJECT_NAME: config.name,
   };
+  
+  const extension = config.language === "typescript" ? "ts" : "js";
 
   const packageTemplate =
     config.language === "typescript"
@@ -61,4 +58,30 @@ export async function generateBase(
     path.join(projectPath, "README.md"),
     variables,
   );
-}
+
+  await renderTemplate(
+    path.join(
+      templatesPath,
+      `error.middleware.${extension}.template`,
+    ),
+    path.join(
+      projectPath,
+      "src/middleware",
+      `error.middleware.${extension}`,
+    ),
+    variables,
+  );
+
+  await renderTemplate(
+    path.join(
+      templatesPath,
+      `response.${extension}.template`,
+    ),
+    path.join(
+      projectPath,
+      "src/utils",
+      `response.${extension}`,
+    ),
+    variables,
+  );
+} 

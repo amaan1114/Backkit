@@ -1,5 +1,6 @@
 import path from "node:path";
 import { renderTemplate } from "../../utils/filesystem.js";
+import { getTemplatesPath } from "../../utils/templates.js";
 
 export async function generatePostgres(
   context: any,
@@ -7,13 +8,16 @@ export async function generatePostgres(
   const { projectPath } = context;
 
   await renderTemplate(
-    path.resolve(
-        process.cwd(), 
-        "src/templates/postgres/database.env.template",
-    ),
-    path.join(projectPath, ".env.database.example"),
-    {
+      path.join(
+        getTemplatesPath("postgres"),
+        "database.env.template",
+      ),
+      path.join(
+        projectPath,
+        ".env.database.example",
+      ),
+      {
         PROJECT_NAME: context.config.name,
-    },
+      },
 );
 }

@@ -9,6 +9,7 @@ import {
   addDevDependencies,
   addScripts,
 } from "../../utils/package-json.js";
+import { getTemplatesPath } from "../../utils/templates.js";
 
 export async function generatePrisma(
   context: any,
@@ -18,11 +19,8 @@ export async function generatePrisma(
   const clientTemplate =
     `client.${extension}.template`;
 
-  const templatesPath = path.resolve(
-    process.cwd(),
-    "src/templates/prisma",
-  );
-
+  const templatesPath = getTemplatesPath("prisma")
+  
   await renderTemplate(
     path.join(
       templatesPath,

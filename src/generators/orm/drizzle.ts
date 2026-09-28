@@ -7,6 +7,7 @@ import {
   addDevDependencies,
   addScripts,
 } from "../../utils/package-json.js";
+import { getTemplatesPath } from "../../utils/templates.js";
 
 export async function generateDrizzle(
   context:any,
@@ -14,10 +15,7 @@ export async function generateDrizzle(
   const { projectPath, config } = context;
 
   const extension = getFileExtension(config.language);
-  const templatesPath = path.resolve(
-    process.cwd(),
-    "src/templates/drizzle",
-  );
+  const templatesPath = getTemplatesPath("drizzle");
   
   const clientTemplate =
   `client.${extension}.template`;

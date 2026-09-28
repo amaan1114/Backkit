@@ -1,13 +1,17 @@
 import express from "express";
+{{ERROR_IMPORT}}
+{{AUTH_IMPORT}}
 
 const app = express();
 
 app.use(express.json());
 
-app.get("/health", (req, res) => {
+app.get("/health", (_req, res) => {
   res.json({
     status: "ok",
   });
 });
 
+{{AUTH_ROUTE}}
+app.use(errorHandler);
 export default app;

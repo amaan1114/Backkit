@@ -1,19 +1,22 @@
 import path from "node:path";
 
-import type { GeneratorContext } from "../../types/config.js";
 import { renderTemplate } from "../../utils/filesystem.js";
+import { getTemplatesPath } from "../../utils/templates.js";
 
 export async function generateMongo(
-  context: GeneratorContext,
+  context: any,
 ): Promise<void> {
   const { projectPath } = context;
 
   await renderTemplate(
-    path.resolve(
-      process.cwd(),
-      "src/templates/mongo/database.env.template",
+    path.join(
+      getTemplatesPath("mongo"),
+      "database.env.template",
     ),
-    path.join(projectPath, ".env.database.example"),
+    path.join(
+      projectPath,
+      ".env.database.example",
+    ),
     {
       PROJECT_NAME: context.config.name,
     },
