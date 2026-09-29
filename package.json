@@ -1,6 +1,6 @@
 {
   "name": "@ghost1411/backkit",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Customizable backend scaffolding CLI for generating production-ready Node.js APIs",
   "keywords": [
     "backend",
