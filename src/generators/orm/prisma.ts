@@ -1,7 +1,4 @@
 import path from "node:path";
-
-
-
 import { renderTemplate } from "../../utils/filesystem.js";
 import { getFileExtension } from "../../utils/language.js";
 import {
@@ -47,18 +44,37 @@ export async function generatePrisma(
     {},
   );
 
+  await renderTemplate(
+    path.join(
+      templatesPath,
+      "prisma.config.ts.template",
+    ),
+    path.join(
+      projectPath,
+      "prisma.config.ts",
+    ),
+    {},
+  );
+
+  // Pin to the same major: prisma's "latest" npm tag can point at a
+  // prerelease that doesn't match @prisma/client.
   await addDependencies(projectPath, {
-    "@prisma/client": "latest",
+    "@prisma/client": "^7.10.0",
+    "@prisma/adapter-pg": "^7.10.0",
+    pg: "latest",
     dotenv: "latest",
   });
 
   await addDevDependencies(projectPath, {
-    prisma: "latest",
+    prisma: "^7.10.0",
+    "@types/pg": "latest",
   });
 
   await addScripts(projectPath, {
+    postinstall: "prisma generate",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
+    "db:push": "prisma db push",
     "db:studio": "prisma studio",
   });
 }
