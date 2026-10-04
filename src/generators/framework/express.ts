@@ -37,7 +37,7 @@ export async function generateExpress(
       {
         AUTH_IMPORT: authImport,
         AUTH_ROUTE: authRoute,
-        ERROR_IMPORT: `import { errorHandler } from "./middleware/error.middleware.js";`,
+        ERROR_IMPORT: `import globalHandler from "./middleware/error.middleware.js";`,
       },
   );
 

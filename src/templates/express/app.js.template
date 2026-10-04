@@ -1,5 +1,6 @@
 import express from "express";
 
+{{ERROR_IMPORT}}
 {{AUTH_IMPORT}}
 
 const app = express();
@@ -14,4 +15,5 @@ app.get("/health", (_req, res) => {
 
 {{AUTH_ROUTE}}
 
+app.use(globalHandler);
 export default app;

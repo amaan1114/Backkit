@@ -84,4 +84,29 @@ export async function generateBase(
     ),
     variables,
   );
-} 
+
+  const templateFiles = [
+    [`httpResponse.${extension}.template`, `src/utils/httpResponse.${extension}`],
+    [`httpError.${extension}.template`, `src/utils/httpError.${extension}`],
+    [`constants/messages.${extension}.template`, `src/constants/messages.${extension}`],
+    [`utils/logger.${extension}.template`, `src/utils/logger.${extension}`],
+  ] as const;
+
+  for (const [template, destination] of templateFiles) {
+    await renderTemplate(
+    path.join(templatesPath, template),
+    path.join(projectPath, destination),
+    variables,
+    );
+  }
+
+  if (config.language === "typescript") {
+    for (const typeName of ["thttpResponse", "thttpError"]) {
+    await renderTemplate(
+      path.join(templatesPath, `types/${typeName}.ts.template`),
+      path.join(projectPath, `src/types/${typeName}.ts`),
+      variables,
+    );
+    }
+  }
+}

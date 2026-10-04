@@ -1,0 +1,23 @@
+import type { Request, Response } from "express";
+import type { THttpResponse } from "../types/thttpResponse.js";
+
+export function httpResponse(res: Response, req: Request, status: number, message: string, data: unknown) {
+  const response: THttpResponse = {
+    success: true,
+    status,
+    message,
+    data,
+    audit: {
+      requestedBy: req.ip || "Unknown",
+      timestamp: new Date().toISOString(),
+      requestedUrl: req.originalUrl,
+    },
+  };
+
+  return res.status(status).json({
+    success: response.success,
+    status: response.status,
+    message: response.message,
+    data: response.data,
+  });
+}

@@ -1,0 +1,11 @@
+export type THttpResponse = {
+  success: true;
+  status: number;
+  message: string;
+  data: unknown;
+  audit: {
+    requestedBy: string;
+    timestamp: string;
+    requestedUrl: string;
+  };
+};

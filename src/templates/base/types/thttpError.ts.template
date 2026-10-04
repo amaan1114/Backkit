@@ -1,0 +1,13 @@
+export type THttpError = {
+  success: false;
+  status: number;
+  message: string;
+  data: unknown;
+  audit: {
+    requestedBy: string;
+    timestamp: string;
+    requestedUrl: string;
+    traceId: string;
+    tracePath: string;
+  };
+};

@@ -13,5 +13,5 @@ app.get("/health", (_req, res) => {
 });
 
 {{AUTH_ROUTE}}
-app.use(errorHandler);
+app.use(globalHandler);
 export default app;

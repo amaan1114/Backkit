@@ -1,0 +1,35 @@
+import type { NextFunction, Request } from "express";
+import { randomUUID } from "node:crypto";
+import type { THttpError } from "../types/thttpError.js";
+
+class HttpError extends Error {
+  public readonly status: number;
+  public readonly data: unknown;
+  public readonly payload: THttpError;
+
+  constructor(req: Request | undefined, status: number, message: string, data: unknown = null) {
+    super(message);
+    this.name = "HttpError";
+    this.status = status;
+    this.data = data;
+    this.payload = {
+      success: false,
+      status,
+      message,
+      data,
+      audit: {
+        requestedBy: req?.ip ?? "unknown",
+        timestamp: new Date().toISOString(),
+        requestedUrl: req?.originalUrl ?? "unknown",
+        traceId: randomUUID(),
+        tracePath: req ? `${req.method} ${req.path}` : "unknown",
+      },
+    };
+  }
+}
+
+export function sendHttpError(next: NextFunction, req: Request, status: number, message: string, data: unknown = null) {
+  return next(new HttpError(req, status, message, data));
+}
+
+export default HttpError;
